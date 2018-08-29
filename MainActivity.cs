@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Net.Http;
 using Android.App;
 using Android.Widget;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
+using Android.Util;
 using Android.Views;
 
 namespace QuakeX
@@ -11,8 +14,6 @@ namespace QuakeX
 	[Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
 	public class MainActivity : AppCompatActivity
 	{
-	    public static TextView txt;
-
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
@@ -21,8 +22,6 @@ namespace QuakeX
 
 			Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
-
-		    txt = (TextView) FindViewById(Resource.Id.txt);
 
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
@@ -51,8 +50,30 @@ namespace QuakeX
             Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
                 .SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
 
-            USGSService usgs = new USGSService();
-            usgs.Execute();
+            var usgs = new BackgroundWorker();
+
+            usgs.DoWork += async (obj, args) =>
+            {
+                try
+                {
+                    using (var client = new HttpClient())
+                    {
+                        var data = await client.GetStringAsync("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2018-08-19&endtime=2018-09-09&minmagnitude=6&minlatitude=-30&maxlatitude=-10&minlongitude=-180&maxlongitude=-170");
+                        var txt = (TextView)FindViewById(Resource.Id.txt);
+
+                        RunOnUiThread(() =>
+                        {
+                            txt.SetText(data, TextView.BufferType.Normal);
+                        });
+                    }
+                }
+                catch (HttpRequestException exception)
+                {
+                    Log.Error(this.GetType().ToString(), exception.ToString());
+                }
+            };
+
+            usgs.RunWorkerAsync();
         }
 	}
 }
