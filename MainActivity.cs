@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Net.Http;
+using System.Text;
 using Android.App;
 using Android.Widget;
 using Android.OS;
@@ -8,6 +11,9 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
+
+using Newtonsoft;
+using Newtonsoft.Json;
 
 namespace QuakeX
 {
@@ -59,11 +65,15 @@ namespace QuakeX
                     using (var client = new HttpClient())
                     {
                         var data = await client.GetStringAsync("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2018-08-19&endtime=2018-09-09&minmagnitude=6&minlatitude=-30&maxlatitude=-10&minlongitude=-180&maxlongitude=-170");
-                        var txt = (TextView)FindViewById(Resource.Id.txt);
 
+                        var quake = JsonConvert.DeserializeObject<Quake>(data);
+                        var result = new StringBuilder();
+                        quake.features.ToList().ForEach(f => result.AppendLine(f.properties.title));
+                        
                         RunOnUiThread(() =>
                         {
-                            txt.SetText(data, TextView.BufferType.Normal);
+                            var txt = (TextView)FindViewById(Resource.Id.txt);
+                            txt.SetText(result.ToString(), TextView.BufferType.Normal);
                         });
                     }
                 }
