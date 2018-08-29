@@ -30,8 +30,8 @@ namespace QuakeX
 			Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
-            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
-            fab.Click += FabOnClick;
+            ImageButton image = FindViewById<ImageButton>(Resource.Id.image);
+            image.Click += ImageOnClick;
 		}
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
@@ -51,7 +51,7 @@ namespace QuakeX
             return base.OnOptionsItemSelected(item);
         }
 
-        private void FabOnClick(object sender, EventArgs eventArgs)
+        private void ImageOnClick(object sender, EventArgs eventArgs)
         {
             View view = (View) sender;
             Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
