@@ -2237,8 +2237,8 @@ namespace QuakeX
 			// aapt resource value: 0x7f080043
 			public const int action_mode_close_button = 2131230787;
 			
-			// aapt resource value: 0x7f08009d
-			public const int action_settings = 2131230877;
+			// aapt resource value: 0x7f08009f
+			public const int action_settings = 2131230879;
 			
 			// aapt resource value: 0x7f080086
 			public const int action_text = 2131230854;
@@ -2423,8 +2423,8 @@ namespace QuakeX
 			// aapt resource value: 0x7f080048
 			public const int list_item = 2131230792;
 			
-			// aapt resource value: 0x7f08009c
-			public const int masked = 2131230876;
+			// aapt resource value: 0x7f08009e
+			public const int masked = 2131230878;
 			
 			// aapt resource value: 0x7f08008a
 			public const int media_actions = 2131230858;
@@ -2473,6 +2473,12 @@ namespace QuakeX
 			
 			// aapt resource value: 0x7f080007
 			public const int progress_horizontal = 2131230727;
+			
+			// aapt resource value: 0x7f08009b
+			public const int quaketitle = 2131230875;
+			
+			// aapt resource value: 0x7f08009c
+			public const int quakeurl = 2131230876;
 			
 			// aapt resource value: 0x7f08005d
 			public const int radio = 2131230813;
@@ -2651,8 +2657,8 @@ namespace QuakeX
 			// aapt resource value: 0x7f08000e
 			public const int view_offset_helper = 2131230734;
 			
-			// aapt resource value: 0x7f08009b
-			public const int visible = 2131230875;
+			// aapt resource value: 0x7f08009d
+			public const int visible = 2131230877;
 			
 			// aapt resource value: 0x7f080027
 			public const int withText = 2131230759;
@@ -2888,16 +2894,19 @@ namespace QuakeX
 			public const int notification_template_part_time = 2130968633;
 			
 			// aapt resource value: 0x7f04003a
-			public const int select_dialog_item_material = 2130968634;
+			public const int quake_listview = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int select_dialog_multichoice_material = 2130968635;
+			public const int select_dialog_item_material = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int select_dialog_singlechoice_material = 2130968636;
+			public const int select_dialog_multichoice_material = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int support_simple_spinner_dropdown_item = 2130968637;
+			public const int select_dialog_singlechoice_material = 2130968637;
+			
+			// aapt resource value: 0x7f04003e
+			public const int support_simple_spinner_dropdown_item = 2130968638;
 			
 			static Layout()
 			{

@@ -67,11 +67,11 @@ namespace QuakeX
                         var data = await client.GetStringAsync("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2018-08-19&endtime=2018-09-09&minmagnitude=6&minlatitude=-30&maxlatitude=-10&minlongitude=-180&maxlongitude=-170");
 
                         var quake = JsonConvert.DeserializeObject<Quake>(data);
-                        var quakes = quake.features.Select(f => f.properties.title).ToList();
+                        var quakes = quake.features.Select(f => f.properties).ToList();
                         
                         RunOnUiThread(() =>
                         {
-                            var adapter = new ArrayAdapter<string>(this.ApplicationContext, Android.Resource.Layout.SimpleListItem1, quakes);
+                            var adapter = new QuakeAdapter(this.ApplicationContext, Android.Resource.Layout.SimpleListItem1, quakes);
                             var list = (ListView)FindViewById(Resource.Id.list);
                             list.Adapter = adapter;
                         });
