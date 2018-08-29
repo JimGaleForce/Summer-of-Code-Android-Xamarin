@@ -2414,6 +2414,9 @@ namespace QuakeX
 			// aapt resource value: 0x7f080098
 			public const int line3 = 2131230872;
 			
+			// aapt resource value: 0x7f080075
+			public const int list = 2131230837;
+			
 			// aapt resource value: 0x7f08000f
 			public const int listMode = 2131230735;
 			
@@ -2638,9 +2641,6 @@ namespace QuakeX
 			
 			// aapt resource value: 0x7f08000b
 			public const int transition_scene_layoutid_cache = 2131230731;
-			
-			// aapt resource value: 0x7f080075
-			public const int txt = 2131230837;
 			
 			// aapt resource value: 0x7f080009
 			public const int up = 2131230729;
