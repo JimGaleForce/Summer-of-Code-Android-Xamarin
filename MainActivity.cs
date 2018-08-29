@@ -11,6 +11,7 @@ namespace QuakeX
 	[Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
 	public class MainActivity : AppCompatActivity
 	{
+	    public static TextView txt;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -21,7 +22,9 @@ namespace QuakeX
 			Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
-			FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
+		    txt = (TextView) FindViewById(Resource.Id.txt);
+
+            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
 		}
 
@@ -47,6 +50,9 @@ namespace QuakeX
             View view = (View) sender;
             Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
                 .SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
+
+            USGSService usgs = new USGSService();
+            usgs.Execute();
         }
 	}
 }
