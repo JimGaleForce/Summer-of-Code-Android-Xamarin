@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using Android.App;
+using Android.Content;
 using Android.Widget;
 using Android.OS;
 using Android.Support.Design.Widget;
@@ -58,6 +59,17 @@ namespace QuakeX
 
             var usgs = new BackgroundWorker();
 
+            List<Properties> quakes = null;
+            var list = (ListView)FindViewById(Resource.Id.list);
+            list.ItemClick += (obj, args) =>
+            {
+                var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse(quakes[args.Position].url));
+                intent.AddFlags(ActivityFlags.NewTask);
+                intent.SetPackage("com.microsoft.emmx");
+
+                this.ApplicationContext.StartActivity(intent);
+            };
+
             usgs.DoWork += async (obj, args) =>
             {
                 try
@@ -67,12 +79,11 @@ namespace QuakeX
                         var data = await client.GetStringAsync("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2018-08-19&endtime=2018-09-09&minmagnitude=6&minlatitude=-30&maxlatitude=-10&minlongitude=-180&maxlongitude=-170");
 
                         var quake = JsonConvert.DeserializeObject<Quake>(data);
-                        var quakes = quake.features.Select(f => f.properties).ToList();
+                        quakes = quake.features.Select(f => f.properties).ToList();
                         
                         RunOnUiThread(() =>
                         {
                             var adapter = new QuakeAdapter(this.ApplicationContext, Android.Resource.Layout.SimpleListItem1, quakes);
-                            var list = (ListView)FindViewById(Resource.Id.list);
                             list.Adapter = adapter;
                         });
                     }
